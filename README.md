@@ -1,69 +1,46 @@
 # Docker Compose Setup
 
-Centralized Docker Compose configuration for local services used by Skill-Wanderer.
+Simplified local Docker Compose setup for Skill-Wanderer contributors.
 
-## PostgreSQL (Main SQL Database)
+## What Is Included
 
-This repository includes a pre-configured PostgreSQL service to provide a consistent development environment. Contributors can start working immediately without manual database installation.
+- PostgreSQL only (no pgAdmin in this repository).
+- Official image pinned to `postgres:16`.
+- Persistent volume `postgres_data`.
+- Built-in `pg_isready` healthcheck.
+- No `.env` file required.
+- Placeholder credentials are included for local development (`change_me`).
 
-### Key Features
+## Folder Structure
 
-- Engine: Official PostgreSQL image pinned to `postgres:16`.
-- Persistence: Uses named volume `postgres_data` to preserve data between restarts.
-- Reliability: Integrated `pg_isready` healthcheck.
-- Customization: Fully controlled via `.env` file.
-- Optional admin tool: Includes `dpage/pgadmin4:9` under the `admin` profile.
+- Compose file location: `postgreSQL/docker-compose.yml`
 
 ## Quick Start
 
-### 1. Initialize Environment
-
-Create your local `.env` file from the provided template:
-
-```powershell
-# Windows PowerShell
-Copy-Item .env.example .env
-
-# macOS / Linux / Git Bash
-cp .env.example .env
-```
-
-### 2. Launch Services
-
-Start PostgreSQL in detached mode:
+### 1. Start PostgreSQL
 
 ```bash
+cd postgreSQL
 docker compose up -d
 ```
 
-### 3. Verify Health
-
-Ensure the container status is `Up (healthy)`:
+### 2. Verify Status
 
 ```bash
 docker compose ps
 ```
 
-## Service Catalog
+### 3. Connection Info
 
-| Service | Image | Host Port | Default Credentials | Description |
-| --- | --- | --- | --- | --- |
-| PostgreSQL | `postgres:16` | `5432` | See `.env` | Primary SQL storage |
-| pgAdmin (`admin` profile) | `dpage/pgadmin4:9` | `5050` | See `.env` | Web GUI for database management |
-
-Note: pgAdmin is disabled by default. To enable it, use the `admin` profile:
-
-```bash
-docker compose --profile admin up -d
-```
-
-When enabled, pgAdmin starts only after PostgreSQL is healthy and stores its state in `pgadmin_data`.
+- Host: `localhost`
+- Port: `5432`
+- Database: `skill_wanderer`
+- Username: `skill_wanderer`
+- Password: `change_me`
 
 ## Advanced Operations
 
 ### Stop Services
-
-Stop containers while keeping data intact:
 
 ```bash
 docker compose down
@@ -71,35 +48,14 @@ docker compose down
 
 ### Hard Reset (Delete All Data)
 
-To wipe the database and start fresh (warning: this deletes all records):
-
 ```bash
 docker compose down -v
 docker compose up -d
 ```
 
-## Troubleshooting
+## Notes
 
-### Port 5432 already in use
-
-Change `POSTGRES_PORT` in your `.env` (for example, `5433`) and restart:
-
-```bash
-docker compose down
-docker compose up -d
-```
-
-### Authentication failed
-
-If credentials were changed after the first launch, reset the volume so PostgreSQL re-initializes with new values:
-
-```bash
-docker compose down -v
-docker compose up -d
-```
-
-### pgAdmin keeps restarting
-
-Ensure `PGADMIN_DEFAULT_EMAIL` in `.env` is a valid email format (for example, `admin@skill-wanderer.dev`).
+- Contributors can use any preferred client (for example, DBeaver, pgAdmin Desktop, TablePlus, or psql).
+- `change_me` is a local placeholder only and must be changed for any non-local or shared environment.
 
 Maintained by Skill-Wanderer Team.
