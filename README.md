@@ -12,7 +12,7 @@ This repository includes a pre-configured PostgreSQL service to provide a consis
 - Persistence: Uses named volume `postgres_data` to preserve data between restarts.
 - Reliability: Integrated `pg_isready` healthcheck.
 - Customization: Fully controlled via `.env` file.
-- Optional admin tool: Includes `dpage/pgadmin4:8` under the `admin` profile.
+- Optional admin tool: Includes `dpage/pgadmin4:9` under the `admin` profile.
 
 ## Quick Start
 
