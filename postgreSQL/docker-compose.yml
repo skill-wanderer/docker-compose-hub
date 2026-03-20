@@ -1,0 +1,19 @@
+services:
+  postgres:
+    image: postgres:latest
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: skill_wanderer
+      POSTGRES_USER: skill_wanderer
+      # Local placeholder only. Change this for any shared or non-local usage.
+      POSTGRES_PASSWORD: change_me
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
+    external: true
+    name: postgres_data
+
