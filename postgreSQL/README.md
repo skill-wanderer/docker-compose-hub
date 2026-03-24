@@ -4,7 +4,7 @@ This folder runs PostgreSQL using Docker Compose with a persistent external Dock
 
 ## What is configured
 
-- PostgreSQL image: `postgres:latest`
+- PostgreSQL image: `postgres:18`
 - Persistent data volume: external Docker volume `postgres_data`
 - No healthcheck (removed)
 
@@ -50,6 +50,94 @@ docker compose -f .\docker-compose.yml down
 
 ```powershell
 docker compose -f .\docker-compose.yml down -v
+```
+
+## Linux setup (bash/zsh)
+
+1. Open terminal and move to this folder:
+
+```bash
+cd ./postgreSQL
+```
+
+2. Create external volume one time:
+
+```bash
+docker volume create postgres_data
+```
+
+3. Start PostgreSQL:
+
+```bash
+docker compose -f ./docker-compose.yml up -d
+```
+
+4. Check running containers:
+
+```bash
+docker compose -f ./docker-compose.yml ps
+```
+
+5. View logs:
+
+```bash
+docker compose -f ./docker-compose.yml logs -f postgres
+```
+
+6. Stop containers:
+
+```bash
+docker compose -f ./docker-compose.yml down
+```
+
+7. (Optional) Remove container and delete volume:
+
+```bash
+docker compose -f ./docker-compose.yml down -v
+```
+
+## macOS setup (zsh/bash)
+
+1. Open terminal and move to this folder:
+
+```bash
+cd ./postgreSQL
+```
+
+2. Create external volume one time:
+
+```bash
+docker volume create postgres_data
+```
+
+3. Start PostgreSQL:
+
+```bash
+docker compose -f ./docker-compose.yml up -d
+```
+
+4. Check running containers:
+
+```bash
+docker compose -f ./docker-compose.yml ps
+```
+
+5. View logs:
+
+```bash
+docker compose -f ./docker-compose.yml logs -f postgres
+```
+
+6. Stop containers:
+
+```bash
+docker compose -f ./docker-compose.yml down
+```
+
+7. (Optional) Remove container and delete volume:
+
+```bash
+docker compose -f ./docker-compose.yml down -v
 ```
 
 ## Notes
