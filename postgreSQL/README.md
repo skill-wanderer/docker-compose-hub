@@ -4,7 +4,7 @@ This folder runs PostgreSQL using Docker Compose with a persistent external Dock
 
 ## What is configured
 
-- PostgreSQL image: `postgres:18`
+- PostgreSQL image: `postgres:18.3`
 - Persistent data volume: external Docker volume `postgres_data`
 - No healthcheck (removed)
 
